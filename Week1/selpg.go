@@ -281,6 +281,6 @@ func process_input(sa selpg_args) {
 
 // 提示信息
 func help()  {
-  fmt.Printf(os.Stderr, "\nUSAGE: %d -sstart_page -eend_page [ -f | -llines_per_page ]" +
+  fmt.Printf(os.Stderr, "\nUSAGE: %s -sstart_page -eend_page [ -f | -llines_per_page ]" +
 	" [ -ddest ] [ in_filename ]\n", progname)
 }
