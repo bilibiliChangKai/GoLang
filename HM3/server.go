@@ -108,7 +108,7 @@ func viewControllor(w http.ResponseWriter, r *http.Request) {
 	ur := store.UserItem{"123", "456", "789", "101", "112"}
 
 	//t, err := template.ParseFiles("public/htmls/view.html")
-	b, err := ioutil.ReadFile("public/htmls/view.html")
+	b, _ := ioutil.ReadFile("public/htmls/view.html")
 	// 切割并改变tml内容
 	s := string(b)
 	s = strings.Replace(s, "#{target}", ur.Name, 1)
