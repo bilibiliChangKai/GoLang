@@ -29,9 +29,9 @@ $(document).ready(function() {
 			$("input").parent().next().removeClass('red green');
 		},
 		test_and_sent: function() {
-			if (this.local_test())
+			//if (this.local_test())
 				this.online_test();
-			else  alert("请按格式填好信息！");
+			//else alert("请按格式填好信息！");
 		},
 		local_test: function(name) { // 进行单一判断和commit整体判断
 			if (arguments.length == 0) {
@@ -51,16 +51,16 @@ $(document).ready(function() {
 		},
 		online_test: function() { // 进行网络判断
 			var that = this;
-			$.post("http://localhost:8000/text/regist", { // 先发送一个返回本地的url，由返回内容判断
+			$.post("http://localhost:8000/test/regist", { // 先发送一个返回本地的url，由返回内容判断
 					"name": data_string["name"],
-					"number": data_string["number"],
-					"phone": data_string["phone"],
-					"email": data_string["email"],
-					"password": data_string["password1"]
+					//"number": data_string["number"],
+					//"phone": data_string["phone"],
+					//"email": data_string["email"],
+					//"password": data_string["password1"]
 				}, function(data) { // 同步测试是否注册过
 					try {
 						console.log(data);
-						if (data != "") {
+						if (data != "False") {
 							var err = "已经有人注册过";
 							if (data.indexOf("name") != -1)  err += "相同用户名！";
 							if (data.indexOf("number") != -1)  err += "相同学号！";
@@ -68,7 +68,7 @@ $(document).ready(function() {
 							if (data.indexOf("email") != -1)  err += "相同邮箱！";
 							throw err;
 						}
-						that.put_post('http://localhost:8000/sign_out_succeed', {
+						that.put_post('http://localhost:8000/sign_in_succeed', {
 							"name": data_string["name"],
 						});
 					} catch(e) {alert(e); }

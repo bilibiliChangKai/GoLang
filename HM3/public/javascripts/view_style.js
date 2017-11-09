@@ -10,6 +10,6 @@ $(document).ready(function() {
 	}
 
 	$("button").click(function(event) {
-		put_get('/signin');
+		put_get('http://localhost:8000/signin');
 	});
 });

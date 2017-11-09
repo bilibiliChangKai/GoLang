@@ -30,14 +30,15 @@ $(document).ready(function() {
 	});
 
 	$("#signin").click(function(event) {
-		$.post('http://localhost:8000/text/signin', {
+		$.post('http://localhost:8000/test/signin', {
 				"name": $("#name").attr("value"),
 				"password": $("#password").attr("value")
 			},
 			function(data, textStatus, xhr) {
 				try {
-					if (data == "false")  throw "错误的用户名或者密码!";
-					put_post('sign_out_succeed', {
+					alert(data)
+					if (data == "False")  throw "错误的用户名或者密码!";
+					put_post('http://localhost:8000/sign_in_succeed', {
 						"name": $("#name").attr("value")
 					});
 				} catch(e) {alert(e); }
