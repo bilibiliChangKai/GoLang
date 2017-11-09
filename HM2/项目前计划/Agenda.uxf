@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>36</x>
+      <y>171</y>
+      <w>135</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>命令行功能：
+userRegister
+userLogin
+userLogout
+userSearch
+userDelete
+
+meetingCreate
+addDeleteParticipator
+meetingSearch
+meetingCancel
+meetingQuit
+meetingClear</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>171</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+指令执行</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>117</y>
+      <w>252</w>
+      <h>378</h>
+    </coordinates>
+    <panel_attributes>file LogicSystem.go
+-- 数据逻辑层
+-- 负责命令行处理和报错
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>270</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+显示对应状态</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>585</x>
+      <y>81</y>
+      <w>189</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>package AgendaManager
+{AgendaItem储存链表}
+--
+(外接接口Public)
+-func CreateMeeting(title,participator,start time,end time) error;
+-func AddMeetingParticipator(title,participator) error;
+-func QueryMeeting(start time,end time) error;
+-func CancelMeeting(title) error;
+-func QuitMeeting(title) error;
+-func ClearAllMeeting() error;
+--
+(内部实现Private)
+-var agendaItems : agendaItem[]
+-func readJson()
+-func writeJson()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>45</x>
+      <y>27</y>
+      <w>207</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>file main.go
+-- 创建一个单例对象
+-- 单例对象执行
+--
+func main() {
+	LogicSystem.Run();	
+}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>297</x>
+      <y>189</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+package LogicSystem
+{与用户交互的类}
+{主要功能：运用cobra解析参数
+，报错，显示结果}
+--
+(Public)
+func Run(); // 进入交互页面
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>837</x>
+      <y>117</y>
+      <w>189</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>type AgendaItem
+--
+-var beginTime : time
+-var endTime : time
+-var sponsor : name
+-var participator : name[]
+-var startTime : time
+-var endTime :time
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>585</x>
+      <y>378</y>
+      <w>189</w>
+      <h>243</h>
+    </coordinates>
+    <panel_attributes>package UserManager
+{User储存链表}
+--
+(外部接口Public)
+-var CurrentUser : UserItem
+-func IsLogin() bool {}
+-func RegisterUser(name string, password string, email string, phoneNumber string) error {}
+-func LoginUser(name string, password string) error {}
+-func LogoutUser() error {}
+-func ListUsers() (string, error) {}
+-func DeleteUser() error {}
+-func IsRegisteredUser(name string) bool {}
+-func GetLogonUsername() string {}
+--
+(内部实现Private)
+-var userItems : agendaItem[]
+-func readJson()
+-func writeJson()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>837</x>
+      <y>405</y>
+      <w>189</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>type UserItem
+--
+-var id : string
+-var hashPassword : string
+-var email : string
+-var phoneNumber : string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>477</x>
+      <y>198</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>477</x>
+      <y>306</y>
+      <w>126</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;180.0;120.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>765</x>
+      <y>144</y>
+      <w>90</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>765</x>
+      <y>459</y>
+      <w>90</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>567</x>
+      <y>36</y>
+      <w>477</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>file aganda.go
+-- 储存关于Agenda有关的文件
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>243</x>
+      <y>108</y>
+      <w>72</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>567</x>
+      <y>333</y>
+      <w>477</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>file user.go
+-- 储存关于User有关的文件
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
