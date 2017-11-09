@@ -53,10 +53,10 @@ $(document).ready(function() {
 			var that = this;
 			$.post("http://localhost:8000/test/regist", { // 先发送一个返回本地的url，由返回内容判断
 					"name": data_string["name"],
-					//"number": data_string["number"],
-					//"phone": data_string["phone"],
-					//"email": data_string["email"],
-					//"password": data_string["password1"]
+					"id": data_string["number"],
+					"phone": data_string["phone"],
+					"email": data_string["email"],
+					"password": data_string["password1"]
 				}, function(data) { // 同步测试是否注册过
 					try {
 						console.log(data);

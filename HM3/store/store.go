@@ -43,6 +43,14 @@ func IsExistedUser(userName string) bool {
 	return ok
 }
 
+// GetUser 通过姓名获得User,不存在返回error
+func GetUser(userName string) (UserItem, error) {
+	if IsExistedUser(userName) {
+		return userItems[userName], nil
+	}
+	return *new(UserItem), errors.New("ERROR: Not have the user")
+}
+
 // 文件名
 var userItemsFilePath = "store/Json/UserItems.json"
 
