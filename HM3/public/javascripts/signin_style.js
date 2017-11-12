@@ -36,7 +36,6 @@ $(document).ready(function() {
 			},
 			function(data, textStatus, xhr) {
 				try {
-					alert(data)
 					if (data == "False")  throw "错误的用户名或者密码!";
 					put_post('http://localhost:8000/sign_in_succeed', {
 						"name": $("#name").attr("value")

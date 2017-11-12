@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
-	"html/template"
-	"io/ioutil"
 	"net/http"
+	"reflect"
 	"strings"
 
-	"GoLang/HM3/store"
+	"GoLang/HM3/controller/regist"
+	"GoLang/HM3/controller/signin"
+	"GoLang/HM3/controller/view"
 
 	"github.com/codegangsta/martini"
 )
@@ -15,115 +15,59 @@ import (
 func main() {
 	m := martini.Classic()
 
-	m.Get("/", func() string {
-		return "hello"
-	})
-	m.Get("/123.txt", func() string {
-		return "trytry"
-	})
+	m.Get("/regist", registRouter)
+	m.Get("/signin", signinRouter)
+	m.Post("/sign_in_succeed", viewRouter)
 
-	m.Get("/regist", registControllor)
-	m.Get("/signin", signinControllor)
-	m.Post("/sign_in_succeed", viewControllor)
-
-	//m.Post("/test/regist", testRegistControllor)
 	m.Group("/test", func(r martini.Router) {
-		m.Post("/regist", testRegistControllor)
-		m.Post("/signin", testSigninControllor)
+		m.Post("/regist", registRouter)
+		m.Post("/signin", signinRouter)
 	})
+
+	// 在8000端口运行服务器
 	m.RunOnAddr(":8000")
 }
 
-func registControllor(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("public/htmls/regist.html")
-	if err != nil {
-		panic(err)
-	}
-	t.Execute(w, nil)
-}
-
-func testRegistControllor(w http.ResponseWriter, r *http.Request) {
-	// 解析表单
-	if err := r.ParseForm(); err != nil {
-		panic(err)
-	}
-	name := r.FormValue("name")
-
-	// 设置头
-	w.Header().Set("content-type", "text/plain")
-	// 允许跨域访问
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	// 判断是否注册过
-	if ok := store.IsExistedUser(name); ok {
-		fmt.Fprint(w, "True")
+func registRouter(w http.ResponseWriter, r *http.Request) {
+	var methodName string
+	if pathInfo := strings.Trim(r.URL.Path, "/"); pathInfo == "test/regist" {
+		methodName = "TestRegist"
 	} else {
-		// 如果没有,则进行注册
-		id, password, phonenumber, email := r.FormValue("id"), r.FormValue("password"), r.FormValue("phone"), r.FormValue("email")
-		store.AddUser(*store.NewUser(id, name, password, email, phonenumber))
-		fmt.Fprint(w, "False")
+		methodName = "Regist"
 	}
-	//fmt.Println("enter?")
+
+	// 创建控制器,运行方法
+	ob := &regist.RegistController{}
+	callFunction(ob, methodName, &w, r)
 }
 
-func testSigninControllor(w http.ResponseWriter, r *http.Request) {
-	// 解析表单
-	if err := r.ParseForm(); err != nil {
-		panic(err)
-	}
-	name := r.FormValue("name")
-
-	// 设置头
-	w.Header().Set("content-type", "text/plain")
-	// 允许跨域访问
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	// 判断是否注册过
-	if ok := store.IsExistedUser(name); ok {
-		fmt.Fprint(w, "True")
+func signinRouter(w http.ResponseWriter, r *http.Request) {
+	var methodName string
+	if pathInfo := strings.Trim(r.URL.Path, "/"); pathInfo == "test/signin" {
+		methodName = "TestSignin"
 	} else {
-		// 不进行注册
-		fmt.Fprint(w, "False")
+		methodName = "Signin"
 	}
+
+	// 创建控制器,运行方法
+	ob := &signin.SigninController{}
+	callFunction(ob, methodName, &w, r)
 }
 
-func viewControllor(w http.ResponseWriter, r *http.Request) {
-	var name string
-	// post 请求,设置cookie
-	if err := r.ParseForm(); err == nil {
-		name = r.FormValue("name")
-		cookie := http.Cookie{Name: "name", Value: name, Path: "/"}
-		http.SetCookie(w, &cookie)
-	}
-
-	// get 请求,获得cookie
-	coo := r.Header["cookie"]
-	fmt.Println(coo)
-	c, err := r.Cookie("name")
-	if err != nil {
-		panic(err)
-	}
-	name = c.Value
-
-	// 获得user
-	//ur, _ := store.GetUser(name)
-	ur := store.UserItem{"123", "456", "789", "101", "112"}
-
-	//t, err := template.ParseFiles("public/htmls/view.html")
-	b, _ := ioutil.ReadFile("public/htmls/view.html")
-	// 切割并改变tml内容
-	s := string(b)
-	s = strings.Replace(s, "#{target}", ur.Name, 1)
-	s = strings.Replace(s, "#{target}", ur.ID, 1)
-	s = strings.Replace(s, "#{target}", ur.PhoneNumber, 1)
-	s = strings.Replace(s, "#{target}", ur.Email, 1)
-	fmt.Println(s)
-	w.Header().Set("content-type", "text/html")
-	fmt.Fprint(w, s)
+func viewRouter(w http.ResponseWriter, r *http.Request) {
+	// 创建控制器
+	ob := &view.ViewController{}
+	callFunction(ob, "View", &w, r)
 }
 
-func signinControllor(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("public/htmls/signin.html")
-	if err != nil {
-		panic(err)
-	}
-	t.Execute(w, nil)
+// 通过结构变量和函数名运行方法
+func callFunction(i interface{}, methodName string, w *http.ResponseWriter, r *http.Request) {
+	// 创建控制器,得到方法
+	controller := reflect.ValueOf(i)
+	method := controller.MethodByName(methodName + "Action")
+	// 通过反射传递方法值
+	req := reflect.ValueOf(r)
+	res := reflect.ValueOf(*w)
+	// 运行方法
+	method.Call([]reflect.Value{res, req})
 }

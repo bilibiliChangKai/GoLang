@@ -29,9 +29,9 @@ $(document).ready(function() {
 			$("input").parent().next().removeClass('red green');
 		},
 		test_and_sent: function() {
-			//if (this.local_test())
+			if (this.local_test())
 				this.online_test();
-			//else alert("请按格式填好信息！");
+			else alert("请按格式填好信息！");
 		},
 		local_test: function(name) { // 进行单一判断和commit整体判断
 			if (arguments.length == 0) {
