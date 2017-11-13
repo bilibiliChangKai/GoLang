@@ -8,7 +8,11 @@
 
 ## 程序结构说明：
 
- <center>![结构图](./photo/ab1.png) </center>
+<div align=center>
+
+![结构图](./photo/结构图.png)
+
+</div> 
 
 1. 使用了MVC框架，用反射绑定V和C，public文件夹保存V，server.go保存M，controller文件夹保存C。
 2. 使用了martini包。
