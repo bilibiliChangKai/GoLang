@@ -1,0 +1,33 @@
+h1, p, button {
+	font-family: KaiTi, LiSu, sans-serif;
+	text-align: center;
+}
+
+body {
+	background-image: url(../images/index_background.jpg);
+}
+
+img {
+	position: relative;
+	left: calc(50% - 167px);
+}
+
+p {
+	position: relative;
+	font-size: 20pt;
+	margin: 50px;
+}
+
+input {
+	height: 20px;
+}
+
+button {
+	position: relative;
+	left: calc(50% - 90px);
+	width: 80px;
+	height: 40px;
+	border: 1px, black, solid;
+	margin: 10px;
+	font-size: 15pt;
+}
