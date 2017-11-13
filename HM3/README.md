@@ -2,7 +2,7 @@
 
 > 注意事项：
 >
-> ​	必须部署在$GOPATH/src/github.com/bilibiliChangKai/Golang/HM3路径下，go get github即可
+> ​	必须部署在$GOPATH/src/github.com/bilibiliChangKai/GoLang/HM3路径下,可以使用go get
 
 ---
 
