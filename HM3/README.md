@@ -8,7 +8,7 @@
 
 ## 程序结构说明：
 
- <center>![结构图](photo/结构图.png)</center>
+ <center>![结构图](https://github.com/bilibiliChangKai/GoLang/tree/master/HM3/photo/结构图.png)</center>
 
 1. 使用了MVC框架，用反射绑定V和C，public文件夹保存V，server.go保存M，controller文件夹保存C。
 2. 使用了martini包。
@@ -18,13 +18,13 @@
 
 ## crul测试：
 
-![crulget](photo\crulget.png)
+![crulget](https://github.com/bilibiliChangKai/GoLang/tree/master/HM3/photo/crulget.png)
 
 GET /signin 所返回的登录页面。
 
 
 
-![crulpost](photo\crulpost.png)
+![crulpost](https://github.com/bilibiliChangKai/GoLang/tree/master/HM3/photo/crulpost.png)
 
 POST /sign_in_succeed +账号密码 所返回的登录成功页面。
 
@@ -32,9 +32,9 @@ POST /sign_in_succeed +账号密码 所返回的登录成功页面。
 
 ## ab测试：
 
-![ab1](C:\Users\子昂\Desktop\photo\ab1.png)
+![ab1](https://github.com/bilibiliChangKai/GoLang/tree/master/HM3/photo/ab1.png)
 
-![ab2](photo\ab2.png)
+![ab2](https://github.com/bilibiliChangKai/GoLang/tree/master/HM3/photo/ab2.png)
 
 ####  **重要参数解释：**
 
