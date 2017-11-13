@@ -2,11 +2,13 @@
 
 > 注意事项：
 >
-> ​	必须部署在$GOPATH/src/bilibiliChangKai/Golang/路径下，go get 。。即可
+> ​	必须部署在$GOPATH/src/github.com/bilibiliChangKai/Golang/HM3路径下，go get github即可
 
 ---
 
 ## 程序结构说明：
+
+ <center>![结构图](photo/结构图.png)</center>
 
 1. 使用了MVC框架，用反射绑定V和C，public文件夹保存V，server.go保存M，controller文件夹保存C。
 2. 使用了martini包。
