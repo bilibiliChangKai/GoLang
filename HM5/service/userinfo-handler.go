@@ -9,6 +9,10 @@ import (
 	"github.com/unrolled/render"
 )
 
+func init() {
+	entities.UserInfoService.Create()
+}
+
 func postUserInfoHandler(formatter *render.Render) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, req *http.Request) {

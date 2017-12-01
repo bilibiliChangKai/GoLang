@@ -2,6 +2,22 @@ package entities
 
 type userInfoDao DaoSource
 
+var userInfoCreateTable = "CREATE TABLE `userinfo` ( `uid` INT(10) NOT NULL AUTO_INCREMENT, `username` VARCHAR(64) NULL DEFAULT NULL, `departname` VARCHAR(64) NULL DEFAULT NULL, `created` DATE NULL DEFAULT NULL, PRIMARY KEY (`uid`));"
+
+// Create
+func (dao *userInfoDao) Create() error {
+	stmt, err := dao.Prepare(userInfoCreateTable)
+	checkErr(err)
+	defer stmt.Close()
+
+	_, err = stmt.Exec()
+	checkErr(err)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 var userInfoInsertStmt = "INSERT userinfo SET username=?,departname=?,created=?"
 
 // Save .

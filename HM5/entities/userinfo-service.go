@@ -6,6 +6,23 @@ type UserInfoAtomicService struct{}
 //UserInfoService .
 var UserInfoService = UserInfoAtomicService{}
 
+// Create .
+func (*UserInfoAtomicService) Create() error {
+	tx, err := mydb.Begin()
+	checkErr(err)
+
+	dao := userInfoDao{tx}
+	err = dao.Create()
+
+	if err == nil {
+		tx.Commit()
+	} else {
+		tx.Rollback()
+	}
+
+	return nil
+}
+
 // Save .
 func (*UserInfoAtomicService) Save(u *UserInfo) error {
 	tx, err := mydb.Begin()
