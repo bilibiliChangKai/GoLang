@@ -39,3 +39,18 @@ func getUserInfoHandler(formatter *render.Render) http.HandlerFunc {
 		formatter.JSON(w, http.StatusOK, ulist)
 	}
 }
+
+func deleteUserInfoHandle(formatter *render.Render) http.HandlerFunc {
+
+	return func(w http.ResponseWriter, req *http.Request) {
+		req.ParseForm()
+		if len(req.Form["userid"][0]) == 0 {
+			formatter.JSON(w, http.StatusBadRequest, struct{ ErrorIndo string }{"Bad Input!"})
+			return
+		}
+
+		i, _ := strconv.ParseInt(req.Form["userid"][0], 10, 32)
+		u := entities.UserInfoService.DeleteByID(int(i))
+		formatter.JSON(w, http.StatusOK, u)
+	}
+}

@@ -6,23 +6,6 @@ type UserInfoAtomicService struct{}
 //UserInfoService .
 var UserInfoService = UserInfoAtomicService{}
 
-// // Create .
-// func (*UserInfoAtomicService) Create() error {
-// 	tx, err := mydb.Begin()
-// 	checkErr(err)
-//
-// 	dao := userInfoDao{tx}
-// 	err = dao.Create()
-//
-// 	if err == nil {
-// 		tx.Commit()
-// 	} else {
-// 		tx.Rollback()
-// 	}
-//
-// 	return nil
-// }
-
 // Save .
 func (*UserInfoAtomicService) Save(u *UserInfo) error {
 	_, err := mydb.Insert(u)
@@ -33,7 +16,7 @@ func (*UserInfoAtomicService) Save(u *UserInfo) error {
 // FindAll .
 func (*UserInfoAtomicService) FindAll() []UserInfo {
 	as := []UserInfo{}
-	err := mydb.Desc("id").Find(&as)
+	err := mydb.Desc("i_d").Find(&as)
 	checkErr(err)
 	return as
 }
@@ -44,4 +27,13 @@ func (*UserInfoAtomicService) FindByID(id int) *UserInfo {
 	_, err := mydb.Id(id).Get(a)
 	checkErr(err)
 	return a
+}
+
+// DeleteByID .
+func (*UserInfoAtomicService) DeleteByID(id int) error {
+	// 软删除
+	mydb.Id(id).Delete(&UserInfo{})
+	// 真正删除
+	mydb.Id(id).Unscoped().Delete(&UserInfo{})
+	return nil
 }
