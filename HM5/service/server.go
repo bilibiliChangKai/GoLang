@@ -2,6 +2,7 @@ package service
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
@@ -10,6 +11,8 @@ import (
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
+	// 初始化数据库
+	initMydb(os.Args)
 
 	formatter := render.New(render.Options{
 		IndentJSON: true,
