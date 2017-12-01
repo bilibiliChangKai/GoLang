@@ -24,22 +24,6 @@ func init() {
 	mydb = db
 }
 
-// // SQLExecer interface for supporting sql.DB and sql.Tx to do sql statement
-// type SQLExecer interface {
-// 	Insert(beans ...interface{}) (int64, error)
-// 	Delete(bean interface{}) (int64, error)
-// 	Prepare(query string) (*sql.Stmt, error)
-// 	Query(query string, args ...interface{}) (*sql.Rows, error)
-// 	QueryRow(query string, args ...interface{}) *sql.Row
-// }
-//
-// // DaoSource Data Access Object Source
-// type DaoSource struct {
-// 	// if DB, each statement execute sql with random conn.
-// 	// if Tx, all statements use the same conn as the Tx's connection
-// 	SQLExecer
-// }
-
 func checkErr(err error) {
 	if err != nil {
 		panic(err)
